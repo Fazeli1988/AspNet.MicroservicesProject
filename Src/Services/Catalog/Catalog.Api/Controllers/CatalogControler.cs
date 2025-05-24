@@ -9,7 +9,7 @@ namespace Catalog.Api.Controllers
     [ApiController]
     public class CatalogControler : ControllerBase
     {
-        #region constractor
+        #region Constructor
         private readonly IProductRepository _productRepository;
         private readonly ILogger<CatalogControler> _logger;
         public CatalogControler(IProductRepository productRepository, ILogger<CatalogControler> logger)
