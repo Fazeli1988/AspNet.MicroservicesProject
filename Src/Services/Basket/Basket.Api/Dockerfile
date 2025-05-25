@@ -11,19 +11,19 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Src/Services/Catalog/Catalog.Api/Catalog.Api.csproj", "Src/Services/Catalog/Catalog.Api/"]
-RUN dotnet restore "./Src/Services/Catalog/Catalog.Api/Catalog.Api.csproj"
+COPY ["Src/Services/Basket/Basket.Api/Basket.Api.csproj", "Src/Services/Basket/Basket.Api/"]
+RUN dotnet restore "./Src/Services/Basket/Basket.Api/Basket.Api.csproj"
 COPY . .
-WORKDIR "/src/Src/Services/Catalog/Catalog.Api"
-RUN dotnet build "./Catalog.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Src/Services/Basket/Basket.Api"
+RUN dotnet build "./Basket.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Catalog.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Basket.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Catalog.Api.dll"]
+ENTRYPOINT ["dotnet", "Basket.Api.dll"]
