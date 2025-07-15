@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 builder.Services.AddScoped<IDiscountRepository, DiscountRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+//builder.WebHost.UseUrls("http://0.0.0.0:8080");
 var app = builder.Build();
 app.MapGrpcService<DiscountService>();
 //app.MapGrpcService<DiscountRepository>();
