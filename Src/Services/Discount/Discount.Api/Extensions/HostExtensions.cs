@@ -36,7 +36,7 @@ namespace Discount.Api.Extensions
                     command.ExecuteNonQuery();
 
                     //seed data 
-                    command.CommandText = "INSERT INTO Coupon(ProductName,Description,Amount) VALUES('Iphone x','Iphone Discount',150)";
+                    command.CommandText = "INSERT INTO Coupon(ProductName,Description,Amount) VALUES('IPhone X','Iphone Discount',150)";
                     command.ExecuteNonQuery();
 
                     command.CommandText = "INSERT INTO Coupon(ProductName,Description,Amount) VALUES('Sumsung 10','Sumsung Discount',150)";

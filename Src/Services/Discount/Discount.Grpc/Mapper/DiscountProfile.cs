@@ -4,11 +4,11 @@ using Discount.Grpc.Protos;
 
 namespace Discount.Grpc.Mapper
 {
-    public class DiscountProfile:Profile
+    public class DiscountProfile : Profile
     {
         public DiscountProfile()
         {
-            CreateMap<Coupon, CouponModle>();
+            CreateMap<Coupon, CouponModel>().ReverseMap();
         }
     }
 }

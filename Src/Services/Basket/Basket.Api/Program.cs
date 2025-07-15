@@ -1,4 +1,6 @@
+using Basket.Api.GrpcServices;
 using Basket.Api.Repositories;
+using Discount.Grpc.Protos;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +17,12 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetValue<string>("CacheSettings:ConnectionString");
 });
 builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+builder.Services.AddScoped<DiscountGrpcService>();
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    //options.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]!);
+    options.Address = new Uri("http://localhost:5028");
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
