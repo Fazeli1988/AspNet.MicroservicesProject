@@ -4,23 +4,27 @@ using Microsoft.Extensions.Logging;
 
 namespace Ordering.Application.Behaviours
 {
-    public class UnhandledExceptionBehaviour<Trequest, TResponse> : IPipelineBehavior<Trequest, TResponse> where Trequest : IRequest<TResponse>
+    public class UnhandledExceptionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
     {
-        private readonly ILogger<Trequest> _logger;
-        public UnhandledExceptionBehaviour(ILogger<Trequest> logger)
+        private readonly ILogger<TRequest> _logger;
+
+        public UnhandledExceptionBehaviour(ILogger<TRequest> logger)
         {
-            _logger= logger;
+            _logger = logger;
         }
-        public async Task<TResponse> Handle(Trequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+
+   
+
+        public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            try 
-            { 
-                return await next(); 
-            }
-            catch (Exception ex) 
+            try
             {
-                var requestName=typeof(Trequest).Name;
-                _logger.LogError(ex, $"Application request: Unhandled Exception for request{requestName}{request} ");
+                return await next();
+            }
+            catch (Exception e)
+            {
+                var requestName = typeof(TRequest).Name;
+                _logger.LogError(e, $"Application request: Unhandled Exception for request {requestName} {request}");
                 throw;
             }
         }

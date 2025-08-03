@@ -24,11 +24,17 @@ namespace Ordering.Infrastructure.Persistence
                 {
                     FirstName = "mahdi",
                     LastName = "fazeli",
-                    UserName = "mahdi",
+                    UserName = "ali",
                     EmailAddress = "test@test.com",
                     City = "verona",
                     Country = "italy",
-                    TotalPrice = 10000
+                    TotalPrice = 10000,
+                    BankNumber="1000",
+                    PhoneNumber="1234567890",
+                    RefCode="123",
+                    ZipCode="123"
+
+                    
                 }
             };
         }

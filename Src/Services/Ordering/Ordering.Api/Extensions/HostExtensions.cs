@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ordering.Api.Extensions
 {
@@ -21,10 +22,10 @@ namespace Ordering.Api.Extensions
                     InvokeSeeder(seeder, context,services);
                     logger.LogInformation("migrating has done for sql server");
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
                     logger.LogError(ex, "an error occurred while migrating database");
-                    if (retryForAvailability > 50)
+                    if (retryForAvailability < 50)
                     {
                         retryForAvailability++;
                         System.Threading.Thread.Sleep(2000);
