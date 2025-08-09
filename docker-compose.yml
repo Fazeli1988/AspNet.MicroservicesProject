@@ -9,6 +9,8 @@
     image: dpage/pgadmin4
   orderdb:
     image: mcr.microsoft.com/mssql/server:2019-latest
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
   portainer:
     image: portainer/portainer-ce
   catalog.api:

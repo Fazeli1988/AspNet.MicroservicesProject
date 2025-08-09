@@ -1,6 +1,7 @@
 using Basket.Api.GrpcServices;
 using Basket.Api.Repositories;
 using Discount.Grpc.Protos;
+using MassTransit;
 using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,14 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
     options.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl")!);
     //options.Address = new Uri("http://localhost:5028");
 });
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((ctx, conf) =>
+    {
+        conf.Host(builder.Configuration.GetValue<string>("EventBusSetting:HostAddress"));
+    });
+});
+builder.Services.AddAutoMapper(typeof(Program));
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

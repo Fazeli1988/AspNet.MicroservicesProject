@@ -1,4 +1,7 @@
+using EventBus.Messages.Common;
+using MassTransit;
 using Microsoft.OpenApi.Models;
+using Ordering.Api.EventBusConsumer;
 using Ordering.Api.Extensions;
 using Ordering.Application;
 using Ordering.Infrastructure;
@@ -17,8 +20,20 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-
-
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddMassTransit(config =>
+{
+    config.AddConsumer<BasketCheckoutConsumer>();
+    config.UsingRabbitMq((ctx, conf) =>
+    {
+        conf.Host(builder.Configuration.GetValue<string>("EventBusSetting:HostAddress"));
+        conf.ReceiveEndpoint(EventBusConstants.BasketCheckoutQueue, c =>
+        { 
+            c.ConfigureConsumer<BasketCheckoutConsumer>(ctx); 
+        });
+    });
+});
+builder.Services.AddScoped<BasketCheckoutConsumer>();
 
 var app = builder.Build();
 
