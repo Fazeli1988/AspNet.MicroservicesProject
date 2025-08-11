@@ -12,6 +12,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Src/Services/Ordering/Ordering.Api/Ordering.Api.csproj", "Src/Services/Ordering/Ordering.Api/"]
+COPY ["Src/BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "Src/BuildingBlocks/EventBus.Messages/"]
 COPY ["Src/Services/Ordering/Ordering.Application/Ordering.Application.csproj", "Src/Services/Ordering/Ordering.Application/"]
 COPY ["Src/Services/Ordering/Ordering.Domain/Ordering.Domain.csproj", "Src/Services/Ordering/Ordering.Domain/"]
 COPY ["Src/Services/Ordering/Ordering.Infrastructure/Ordering.Infrastructure.csproj", "Src/Services/Ordering/Ordering.Infrastructure/"]
