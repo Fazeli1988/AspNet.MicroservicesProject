@@ -43,10 +43,17 @@
       context: .
       dockerfile: Src/Services/Ordering/Ordering.Api/Dockerfile
 
+  ocelotapigw:
+    image: ${DOCKER_REGISTRY-}ocelotapigw
+    build:
+      context: .
+      dockerfile: Src/ApiGateways/OcelotApiGw/Dockerfile
+
  volumes:
   mongo_data:
   portainer_data:
   postgres_data:  
   pgadmin_data:  
+
 
 
