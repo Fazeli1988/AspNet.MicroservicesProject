@@ -7,12 +7,12 @@ namespace Catalog.Api.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class CatalogControler : ControllerBase
+    public class CatalogController : ControllerBase
     {
         #region Constructor
         private readonly IProductRepository _productRepository;
-        private readonly ILogger<CatalogControler> _logger;
-        public CatalogControler(IProductRepository productRepository, ILogger<CatalogControler> logger)
+        private readonly ILogger<CatalogController> _logger;
+        public CatalogController(IProductRepository productRepository, ILogger<CatalogController> logger)
         {
             _productRepository = productRepository;
             _logger = logger;
