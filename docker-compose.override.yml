@@ -128,8 +128,24 @@ services:
     ports:
       - "8010:8080"
 
+  shopping.aggregator:
+    container_name: shopping.aggregator
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - "ApiSettings:CatalogUrl=http://catalog.api"   
+      - "ApiSettings:BasketUrl=http://basket.api"   
+      - "ApiSettings:OrderingUrl=http://ordering.api" 
+    depends_on:
+      - catalog.api
+      - basket.api
+      - ordering.api 
+    ports:
+      - "8006:8080"
+
 volumes:
   mongo_data:
+
 
 
 
